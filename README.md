@@ -4,6 +4,7 @@ minimal alpha of fully deterministic password manager it fixes two main problems
 
 1. someone steals your password vault and tries to brute force it offline (even though this is insanely difficult to pull off if you have a strong master password)
 2. backing up password vault/accessing passwords on any machine without having a intricate backup system
+
 it fixes them by fully generating your passwords on the fly derived from the master-password and the service name directly same input will always generate the same output no matter what machine you're on, without any external servers or services needed.
 
 also means no metadata is ever stored even on disk about what services you have an account on its the **stupidiest password manager on earth entirely by design**. also fixes other problems in other fully deterministic password managers.

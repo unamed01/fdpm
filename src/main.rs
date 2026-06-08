@@ -1,14 +1,14 @@
 use argon2::{Argon2, PasswordHasher, password_hash::SaltString};
 use rand::rngs::StdRng;
 use rand::{RngExt, SeedableRng};
+use rpassword::read_password;
 use std::{env, io};
 use zeroize::Zeroize;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args: Vec<String> = env::args().collect();
     println!("input pass");
-    let mut pass = String::new();
-    io::stdin().read_line(&mut pass).unwrap();
+    let mut pass = read_password()?;
     // let pass = pass.trim();
     let salt = SaltString::from_b64("bXlzaXRlLmNvbQ").unwrap();
     let argon2 = Argon2::default();
@@ -39,7 +39,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 fn get_pass_from_rng(rng: &mut StdRng, length: Option<i16>) -> String {
-    let length = length.unwrap_or(128);
+    let length = length.unwrap_or(64);
     let mut output = Vec::with_capacity(128);
     for _ in 0..length {
         let a = char::from_u32(rng.random_range(32..127)).unwrap();
