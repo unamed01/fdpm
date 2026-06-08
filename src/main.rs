@@ -5,6 +5,7 @@ use rpassword::read_password;
 use std::{env, io};
 use zeroize::Zeroize;
 
+#[allow(clippy::main_recursion)]
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args: Vec<String> = env::args().collect();
     println!("input pass");
@@ -23,6 +24,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut ok = String::new();
     io::stdin().read_line(&mut ok).unwrap();
     if ok != "\n" {
+        let _ = main();
         return Ok(());
     }
     let service = if args.get(1).is_none() {
