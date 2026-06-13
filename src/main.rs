@@ -6,6 +6,10 @@ use std::io::Write;
 use std::{env, io};
 use zeroize::Zeroize;
 
+// change this with another random string.
+// try running head -c 32 | base64 and paste the output below.
+const SALT: &[u8] = b"deci5Dzx+PvvvIaS7osBVgUVByBECbOfq5zZRJD8aD8=";
+
 #[allow(clippy::main_recursion)]
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args: Vec<String> = env::args().collect();
@@ -15,17 +19,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut pass = read_password()?;
     let argon2 = Argon2::default();
     let mut seed = [0u8; 32];
-    // you should definetly change the salt..
     argon2
-        .hash_password_into(
-            pass.as_bytes(),
-            b"deci5Dzx+PvvvIaS7osBVgUVByBECbOfq5zZRJD8aD8=",
-            &mut seed,
-        )
+        .hash_password_into(pass.as_bytes(), SALT, &mut seed)
         .unwrap();
     pass.zeroize();
     let mut rng = <StdRng as SeedableRng>::from_seed(seed);
-    seed.zeroize();
     let verify_string = get_pass_from_rng(&mut rng, Some(4));
     println!("your verify string is:{verify_string}");
     println!("if this looks correct press enter if not input anything else.");
@@ -34,7 +32,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     if ok != "\n" {
         let _ = main();
         return Ok(());
-    }
+    };
     let service = if args.get(1).is_none() {
         let mut service = String::new();
         println!("input desired service");
@@ -44,6 +42,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         args[1].clone()
     };
     let mut password = match_2_service(service.as_str(), &seed);
+    seed.zeroize();
     println!("your pasword is {}", password);
     password.zeroize();
     Ok(())
@@ -63,14 +62,10 @@ fn match_2_service(service: &str, pass_seed: &[u8; 32]) -> String {
     password_and_service.extend_from_slice(pass_seed);
     password_and_service.extend_from_slice(service.as_bytes());
     let mut seed = [0u8; 32];
-    // you should definetly change the salt
     argon2
-        .hash_password_into(
-            password_and_service.as_slice(),
-            b"deci5Dzx+PvvvIaS7osBVgUVByBECbOfq5zZRJD8aD8=",
-            &mut seed,
-        )
+        .hash_password_into(password_and_service.as_slice(), SALT, &mut seed)
         .unwrap();
     let mut rng = <StdRng as SeedableRng>::from_seed(seed);
+    seed.zeroize();
     get_pass_from_rng(&mut rng, None)
 }
