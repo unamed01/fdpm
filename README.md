@@ -14,7 +14,3 @@ also means no metadata is ever stored even on disk about what services you have 
 
 it's just a rust binary everything gets generated entirely on the fly nothing gets stored on disk at all it needs literally nothing to work other than the binary itself, a cpu and ram? also fixes information leakage problem by before deriving the passwords from master password hash + service name it hashes both together with Argon2 then derives the actual password from that.
 and because the way its built an attacker cannot even start to brute force your password without having compromised at least one password first which raises the bar significantly.
-
-## alpha build
-
-this is mostly a proof of concept right now this shouldn't be used in production while the concepts are sound it still has rough edges that will get fixed later this is only a testing build for now
