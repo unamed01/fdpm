@@ -2,9 +2,15 @@
 name = "dpm"
 version = "0.1.0"
 edition = "2024"
+license = "MIT"
+description = "deterministic password manager (dpm) deniable and metadata free password manager. which doesn't care for backups nor metadata"
+repository = "https://github.com/unamed01/dpm.git"
+readme = "README.md"
+categories = ["password manager", "offline", "deterministic", "dpm"]
 
 [dependencies]
 rand = "0.10.1"
 zeroize = "1.8.2"
 argon2 = "0.5.3"
 rpassword = "7.5.4"
+arboard = "3.6.1"
