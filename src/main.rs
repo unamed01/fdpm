@@ -61,15 +61,16 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     rng.fill(&mut pass_seed);
     let mut password = match_2_service(service.as_str(), &pass_seed);
     pass_seed.zeroize();
-    clipboard
-        .set_text(&password)
-        .unwrap_or_else(|_| password.zeroize());
+    clipboard.set_text(&password).unwrap_or_else(|_| {
+        password.zeroize();
+        panic!("couldn't copy to clipboard")
+    });
     println!("password copied to clipboard");
     password.zeroize();
     for secs in (0..=6).rev() {
         print!("\rclearing clipboard in: {}", secs);
-        sleep(Duration::new(1, 0));
         stdout().flush()?;
+        sleep(Duration::new(1, 0));
     }
     clipboard.clear()?;
     println!();
