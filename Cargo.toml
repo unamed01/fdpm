@@ -14,3 +14,4 @@ zeroize = "1.9.0"
 argon2 = "0.5.3"
 rpassword = "7.5.4"
 arboard = { version = "3.6.1", default-features = false }
+ctrlc = "3.5.2"
