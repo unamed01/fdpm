@@ -1,12 +1,12 @@
 [package]
-name = "dpm"
-version = "0.1.1"
+name = "fdpm"
+version = "1.0.1"
 edition = "2024"
 license = "MIT"
-description = "deterministic password manager (dpm) deniable and metadata free password manager. which doesn't care for backups nor metadata"
-repository = "https://github.com/unamed01/dpm.git"
+description = "fully deterministic password manager (fdpm) deniable and metadata free password manager. which doesn't care for backups nor metadata"
+repository = "https://github.com/unamed01/fdpm.git"
 readme = "README.md"
-categories = ["password manager", "offline", "deterministic", "dpm"]
+categories = ["cryptography", "security"]
 
 [dependencies]
 rand = "0.10.2"

@@ -165,18 +165,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "dpm"
-version = "0.1.1"
-dependencies = [
- "arboard",
- "argon2",
- "ctrlc",
- "rand",
- "rpassword",
- "zeroize",
-]
-
-[[package]]
 name = "errno"
 version = "0.3.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -191,6 +179,18 @@ name = "error-code"
 version = "3.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "dea2df4cf52843e0452895c455a1a2cfbb842a1e7329671acf418fdc53ed4c59"
+
+[[package]]
+name = "fdpm"
+version = "1.0.1"
+dependencies = [
+ "arboard",
+ "argon2",
+ "ctrlc",
+ "rand",
+ "rpassword",
+ "zeroize",
+]
 
 [[package]]
 name = "generic-array"
