@@ -6,6 +6,17 @@ use std::{env, io};
 use zeroize::Zeroize;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
+    //locks pages to ram only and opts out of debugging.
+    //both calls are linux specific.
+    #[cfg(target_os = "linux")]
+    {
+        if unsafe { libc::prctl(libc::PR_SET_DUMPABLE, 0) } != 0 {
+            Err("couldn't set process as non dumpable (call to prctl failed)")?;
+        }
+        if unsafe { libc::mlockall(libc::MCL_CURRENT | libc::MCL_FUTURE) } != 0 {
+            Err("couldn't opt out of using swap (call to mlockall failed)")?;
+        }
+    };
     let args: Vec<String> = env::args().collect();
     if args.len() >= 2 && matches!(args[1].as_str(), "-h" | "--help") {
         print_help(&args[0]);

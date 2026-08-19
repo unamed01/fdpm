@@ -1,6 +1,6 @@
 [package]
 name = "fdpm"
-version = "1.0.1"
+version = "1.0.2"
 edition = "2024"
 license = "MIT"
 description = "fully deterministic password manager (fdpm) deniable and metadata free password manager. which doesn't care for backups nor metadata"
@@ -15,3 +15,4 @@ argon2 = "0.5.3"
 rpassword = "7.5.4"
 arboard = { version = "3.6.1", default-features = false }
 ctrlc = "3.5.2"
+libc = "0.2.189"
